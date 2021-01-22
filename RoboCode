@@ -1,24 +1,5 @@
 myVariable = 0
 
-def when_started1():
-    global myVariable
-    drivetrain.set_turn_velocity(80, PERCENT)
-    drivetrain.set_drive_velocity(80, PERCENT)
-    while True:
-        bottom_intake.set_velocity(100, PERCENT)
-        top_intake.set_velocity(100, PERCENT)
-        if controller_1.buttonL2.pressing() or controller_1.buttonR2.pressing():
-            top_intake.spin(FORWARD)
-            bottom_intake.spin(REVERSE)
-        else:
-            if controller_1.buttonR1.pressing() or controller_1.buttonL1.pressing():
-                top_intake.spin(REVERSE)
-                bottom_intake.spin(FORWARD)
-            else:
-                bottom_intake.stop()
-                top_intake.stop()
-        wait(5, MSEC)
-
 def ondriver_drivercontrol_0():
     global myVariable
     drivetrain.set_drive_velocity(80, PERCENT)
@@ -40,6 +21,8 @@ def ondriver_drivercontrol_0():
 
 def onauton_autonomous_0():
     global myVariable
+    top_intake.set_velocity(100, PERCENT)
+    bottom_intake.set_velocity(100, PERCENT)
     drivetrain.set_drive_velocity(100, PERCENT)
     drivetrain.set_turn_velocity(100, PERCENT)
     drivetrain.drive_for(FORWARD, 24, INCHES, wait=True)
@@ -47,7 +30,7 @@ def onauton_autonomous_0():
     drivetrain.drive_for(FORWARD, 24, INCHES, wait=True)
     drivetrain.turn_for(RIGHT, 45, DEGREES, wait=True)
     drivetrain.drive_for(FORWARD, 19, INCHES, wait=True)
-    top_intake.spin_for(FORWARD, 4, TURNS, wait=True)
+    top_intake.spin_for(FORWARD, 4, TURNS, wait=False)
     bottom_intake.spin_for(REVERSE, 4, TURNS, wait=True)
     drivetrain.drive_for(REVERSE, 19, INCHES, wait=True)
     drivetrain.turn_for(LEFT, 135, DEGREES, wait=True)
@@ -80,5 +63,3 @@ def vexcode_driver_function():
 
 # register the competition functions
 competition = Competition( vexcode_driver_function, vexcode_auton_function )
-
-when_started1()
